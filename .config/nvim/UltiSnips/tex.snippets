@@ -1,0 +1,206 @@
+#Begin 
+snippet beg "begin{} / end{}" wbA
+\begin{$1}
+	$0
+\end{$1}
+endsnippet
+
+#Make inline Math
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+#Separate Math mode
+snippet dm "Math" wA
+\[
+$1
+\] $0
+endsnippet
+
+#Fraction snippet
+snippet frac "Fraction"
+\\frac{$1}{$2}$0
+endsnippet
+
+snippet compile.normal "Compile" bA 
+\documentclass[$1]{$2}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+
+\graphicspath{ {./images/} }
+
+\hypersetup{
+    linktoc=all,
+    hidelinks
+}
+\theoremstyle{definition}
+
+\title{$3}
+\author{Daniel Pavalache}
+
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+$0
+
+
+\end{document}
+endsnippet
+
+snippet compile.main "Compile" bA 
+\documentclass[$1]{$2}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{subfiles} 
+
+\graphicspath{ {./images/} }
+
+\hypersetup{
+    linktoc=all,
+    hidelinks
+}
+\theoremstyle{definition}
+
+\title{$3}
+\author{Daniel Pavalache}
+
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+$0
+
+
+\end{document}
+endsnippet
+
+
+
+snippet compile.sub "Compile" bA 
+\documentclass[../main.tex]{subfiles}
+
+\graphicspath{ {\subfix{../images/}} }
+
+\begin{document}
+$0
+
+
+\end{document}
+endsnippet
+
+
+
+snippet s "Section"
+\section{$1}
+$0
+endsnippet
+
+snippet ss "Subsection"
+\subsection{$1}
+$0
+endsnippet
+
+snippet sss "Subsection"
+\subsubsection{$1}
+$0
+endsnippet
+
+snippet p "Paragraph"
+\paragraph{$1}\mbox{}\\
+
+$0
+endsnippet
+
+snippet sp "Subparagraph"
+\subparagraph{$1}
+$0
+endsnippet
+
+snippet def "Definition" b
+\newtheorem*{$1}{$2}
+\begin{$1}
+$0
+\end{$1}
+endsnippet
+
+
+snippet i "Italic" w
+\textit{$1}$0
+endsnippet
+
+
+snippet b "Bold" w
+\textbf{$1}$0
+endsnippet
+
+snippet ib "Italic and bold" w
+\textit{\textbf{$1}}$0
+endsnippet
+
+snippet u "Underline" w
+\underline{$1}$0
+endsnippet
+
+snippet ul "Unordered list"
+\begin{itemize}
+    \item $1
+
+\end{itemize}
+endsnippet
+
+snippet nl "Numbered list"
+\begin{enumerate}
+    \item $1
+
+\end{enumerate}
+endsnippet
+
+snippet it "Item"
+\item $1
+endsnippet
+
+
+snippet sys "System of equations"
+\begin{cases}
+    $1 \\
+    $0 \\
+
+\end{cases}
+endsnippet
+
+snippet us "Unumbered section"
+\addcontentsline{toc}{section}{$1}
+\section*{$1}
+$0
+endsnippet
+
+snippet skip "Skip line"
+\bigskip
+
+$0
+endsnippet
+
+snippet image "Image" w
+\includegraphics[width=\textwidth]{$1}
+endsnippet
+
+snippet sub "Subfiles" 
+\subfile{sections/$1/$1}
+$0
+endsnippet
