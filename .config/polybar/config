@@ -30,7 +30,7 @@
 background = ${xrdb:color0:#222}
 background-alt = ${xrdb:color4:#222}
 foreground = ${xrdb:color7:#222}
-foreground-alt = ${xrdb:color7:#222}
+foreground-alt = ${xrdb:color9:#222}
 primary = ${xrdb:color1:#222}
 secondary = ${xrdb:color2:#222}
 alert = ${xrdb:color3:#222}
@@ -59,12 +59,13 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = awesome;
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+font-0 = Hack:pixelsize=10
+font-1 = FontAwesome5Free:style=Solid:pixelsize=10:antialias=true;
+font-2 = FontAwesome5Brands:style=Solid:pixelsize=10:antialias=true;
+font-3 = unifont:fontformat=truetype:size=8:antialias=false;0
 
 modules-left =  i3
-modules-right = filesystem pulseaudio backlight xkeyboard memory cpu battery temperature date powermenu
+modules-right = xkeyboard bluetooth filesystem pulseaudio backlight memory cpu battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -93,6 +94,8 @@ type = internal/backlight
 card = acpi_video0
 use-actual-brightness = true
 enable-scroll = true
+format = <label>
+label =  %percentage%%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -164,7 +167,7 @@ interval = 2
 format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
-label = %percentage:2%%
+label = %percentage:2%%
 
 [module/memory]
 type = internal/memory
@@ -172,7 +175,7 @@ interval = 2
 format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
-label = %percentage_used%%
+label =  %percentage_used%%
 
 
 [module/date]
@@ -194,9 +197,11 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
+format-volume = <label-volume> 
+#label-volume = %{#7985A3}%{F#AB6712} %{F-}%{F-} %percentage%%
+label-volume =  %percentage%%
+
+label-volume-foreground = ${colors.foreground}
 
 label-muted = muted
 label-muted-foreground = #666
@@ -255,28 +260,28 @@ full-at = 98
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 
-format-discharging = <animation-discharging> <label-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = ""
+format-full-prefix = ""
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 =
-ramp-capacity-1 =
-ramp-capacity-2 =
-ramp-capacity-foreground = ${colors.foreground-alt}
+ramp-capacity-0 = ""
+ramp-capacity-1 = ""
+ramp-capacity-2 = ""
+ramp-capacity-foreground = ${colors.foreground}
 
-animation-charging-0 =
-animation-charging-1 =
-animation-charging-2 =
+animation-charging-0 = ""
+animation-charging-1 = ""
+animation-charging-2 = ""
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
-animation-discharging-0 =
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
+animation-discharging-0 = 
+animation-discharging-1 =  
+animation-discharging-2 =  
+animation-discharging-foreground = ${colors.foreground}
 animation-discharging-framerate = 750
 
 [module/temperature]
@@ -293,10 +298,9 @@ label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 =
-ramp-1 =
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+ramp-0 = 
+ramp-1 = 
+ramp-foreground = ${colors.foreground}
 
 [module/powermenu]
 type = custom/menu
@@ -327,6 +331,15 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
+[module/bluetooth]
+type = custom/script
+exec = ~/.config/polybar/scripts/bluetooth.sh
+interval = 2
+format-padding = 1
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+
+
 [settings]
 screenchange-reload = true
 ;compositing-background = xor
@@ -340,3 +353,4 @@ margin-top = 0
 margin-bottom = 0
 
 ; vim:ft=dosini
+;

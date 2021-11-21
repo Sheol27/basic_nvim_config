@@ -32,10 +32,10 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% 
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -78,7 +78,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+ograve split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -188,26 +188,35 @@ exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 #Test pywal
 set_from_resource $fg i3wm.color7 #f0f0f0
 set_from_resource $bg i3wm.color2 #f0f0f0
+set_from_resource $tp #FF000000
 
 # class                 border  backgr. text indicator child_border
 client.focused          $fg     $bg     $fg  $bg       $fg
 client.focused_inactive $bg     $bg     $fg  $bg       $bg
-client.unfocused        $bg     $bg     $fg  $bg       $bg
+#client.unfocused        $tp     $tp     $fg  $bg       $bg
 client.urgent           $bg     $bg     $fg  $bg       $bg
 client.placeholder      $bg     $bg     $fg  $bg       $bg
 
 client.background       $bg
+
+#client.unfocused $tp 
 
 #Pywal 
 exec_always --no-startup-id wal -R
 
 #Custom shortcuts
 bindsym $mod+i exec firefox
-bindsym $mod+m exec spotify
+bindsym $mod+m exec 'i3-msg "workspace 1:Web; exec firefox -new-window https://open.spotify.com/"'
+bindsym $mod+Shift+b exec --no-startup-id /usr/local/bin/btrigger
+bindsym $mod+Shit+s exec maim -s -u | xclip -selection clipboard -t image/png -i
+
+bindsym $mod+g exec i3-msg gaps inner all set 30 && i3-msg gaps outer all set 20
+bindsym $mod+t exec i3-msg gaps inner all set 10 && i3-msg gaps outer all set 0 
+
 
 #No borders
-for_window [class="^.*"] border pixel 3
-gaps inner 10 
+for_window [class="^.*"] border pixel 4
+gaps inner 10
 
 #Typing speed
 exec_always --no-startup-id xset r rate 300 30

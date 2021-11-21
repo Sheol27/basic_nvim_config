@@ -31,6 +31,7 @@ snippet compile.normal "Compile" bA
 \documentclass[$1]{$2}
 \usepackage{hyperref}
 \usepackage{amsthm}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage[italian]{babel}
@@ -62,6 +63,7 @@ snippet compile.main "Compile" bA
 \documentclass[$1]{$2}
 \usepackage{hyperref}
 \usepackage{amsthm}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage[italian]{babel}
@@ -140,38 +142,38 @@ $0
 endsnippet
 
 
-snippet i "Italic" w
+snippet i "Italic" wA
 \textit{$1}$0
 endsnippet
 
 
-snippet b "Bold" w
+snippet b "Bold" wA
 \textbf{$1}$0
 endsnippet
 
-snippet ib "Italic and bold" w
+snippet ib "Italic and bold" wA
 \textit{\textbf{$1}}$0
 endsnippet
 
-snippet u "Underline" w
+snippet u "Underline" wA
 \underline{$1}$0
 endsnippet
 
-snippet ul "Unordered list"
+snippet ul "Unordered list" wA
 \begin{itemize}
     \item $1
 
 \end{itemize}
 endsnippet
 
-snippet nl "Numbered list"
+snippet nl "Numbered list" wA
 \begin{enumerate}
     \item $1
 
 \end{enumerate}
 endsnippet
 
-snippet it "Item"
+snippet it "Item" wA
 \item $1
 endsnippet
 
@@ -184,7 +186,7 @@ snippet sys "System of equations"
 \end{cases}
 endsnippet
 
-snippet us "Unumbered section"
+snippet us "Unumbered section" wA
 \addcontentsline{toc}{section}{$1}
 \section*{$1}
 $0
@@ -202,5 +204,12 @@ endsnippet
 
 snippet sub "Subfiles" 
 \subfile{sections/$1/$1}
+$0
+endsnippet
+
+snippet eq "Equation" 
+\begin{equation}
+$1
+\end{equation}
 $0
 endsnippet

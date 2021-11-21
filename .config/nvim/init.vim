@@ -1,7 +1,6 @@
 syntax on
 
 :imap jj <Esc>
-
 :set relativenumber
 :set number
 :set noswapfile
@@ -14,6 +13,7 @@ syntax on
 filetype plugin on
 :set ttimeoutlen=100
 "set termguicolors
+:set updatetime=2000
 
 
 call plug#begin('~/.vim/plugged')
@@ -80,7 +80,7 @@ inoremap <Left> <Nop>
 inoremap <Right> <Nop>
 
 :command R :w | :!pdflatex %  
-:command O :silent ! file=% && zathura --config-dir "~/.cache/wal" ${file\%.*}.pdf &  
+:command O :silent ! file=% && zathura --config-dir "~/.config/zathura/" ${file\%.*}.pdf &  
 :command -nargs=1 S :silent ! grim -g "$(slurp)" images/<f-args>.png "save screenshots in order to open them inside tex files
 :command Convert ! pandoc "%" -f vimwiki -t pdf -s -o ~/vimwiki/pdf/"%:t:r.pdf"
 
@@ -135,6 +135,9 @@ augroup ultisnips_no_auto_expansion
     au VimEnter * au! UltiSnips_AutoTrigger
 augroup END
 
+if &filetype ==# 'tex' || &filetype ==# 'plaintex'
+    autocmd CursorHold,CursorHoldI <buffer> silent! :R
+endif
 
 
 colorscheme wal
