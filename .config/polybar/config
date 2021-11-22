@@ -14,6 +14,7 @@
 ;
 ;   The README contains a lot of information
 ;
+;
 ;==========================================================
 
 [colors]
@@ -166,7 +167,7 @@ type = internal/cpu
 interval = 2
 format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
+format-underline = 
 label = %percentage:2%%
 
 [module/memory]
@@ -174,7 +175,7 @@ type = internal/memory
 interval = 2
 format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+format-underline =
 label =  %percentage_used%%
 
 
@@ -190,7 +191,7 @@ time-alt = %H:%M:%S
 
 format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+format-underline =
 
 label = %date% %time%
 
@@ -258,7 +259,7 @@ adapter = ACAD
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
+format-charging-underline = 
 
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
@@ -290,7 +291,7 @@ thermal-zone = 0
 warn-temperature = 60
 
 format = <ramp> <label>
-format-underline = #f50a4d
+format-underline =
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
