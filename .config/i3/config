@@ -201,7 +201,7 @@ exec_always --no-startup-id wal -R
 
 #Custom shortcuts
 bindsym $mod+i exec firefox
-bindsym $mod+m exec 'i3-msg "workspace 1:Web; exec firefox -new-window https://open.spotify.com/"'
+bindsym $mod+m exec spotify
 bindsym $mod+Shift+b exec --no-startup-id /usr/local/bin/btrigger
 bindsym $mod+Shit+s exec "maim -s -u | xclip -selection clipboard -t image/png -i"
 bindsym $mod+Shift+Right exec playerctl -p spotify next
