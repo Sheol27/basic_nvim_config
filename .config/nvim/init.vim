@@ -124,17 +124,24 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+nnoremap <silent> <C-f> :Files<CR>
+
+
+
+"Help ultisnips to be smoother 
 let g:loaded_python_provider = 1
 let g:python_host_skip_check=1
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_skip_check=1
 let g:python3_host_prog = '/usr/bin/python3'
 
+"This aswell 
 augroup ultisnips_no_auto_expansion
     au!
     au VimEnter * au! UltiSnips_AutoTrigger
 augroup END
 
+"Autosaves when using tex files 
 if &filetype ==# 'tex' || &filetype ==# 'plaintex'
     autocmd CursorHold,CursorHoldI <buffer> silent! :R
 endif
