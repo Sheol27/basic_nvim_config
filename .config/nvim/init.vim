@@ -112,6 +112,7 @@ let g:airline_powerline_fonts = 1
 "let g:vimwiki_list = [{'custom_wiki2html': 'vimwiki_markdown'}, wiki_1, wiki_2]
 "let g:vimwiki_listsyms = '✗○◐●✓'
 "let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+let g:vimwiki_list = [{'auto_diary_index': 1}]
 
 
 " Mapping selecting mappings
@@ -146,5 +147,8 @@ if &filetype ==# 'tex' || &filetype ==# 'plaintex'
     autocmd CursorHold,CursorHoldI <buffer> silent! :R
 endif
 
+if &filetype ==# 'vimwiki'
+    autocmd CursorHold,CursorHoldI <buffer> silent! :w
+endif
 
 colorscheme wal
