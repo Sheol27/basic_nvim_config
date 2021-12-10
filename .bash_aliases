@@ -25,3 +25,9 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias appunti='/usr/bin/git --git-dir=$HOME/.appunti/ --work-tree=$HOME'
 #alias appunti="nvim ~/vimwiki/index.wiki"
 alias diary='nvim ~/diary/index.wiki'
+
+config-update () {
+config add -u &
+config commit -m "$(date +'%d-%m-%Y')"
+config push origin master
+}
