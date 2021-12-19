@@ -203,10 +203,11 @@ exec_always --no-startup-id wal -R
 bindsym $mod+i exec firefox
 bindsym $mod+m exec spotify
 bindsym $mod+Shift+b exec --no-startup-id /usr/local/bin/btrigger
-bindsym $mod+Shift+s exec "maim -s -u | xclip -selection clipboard -t image/png -i"
-bindsym $mod+Shift+Right exec playerctl -p spotify next
-bindsym $mod+Shift+Left exec playerctl -p spotify previous
-bindsym $mod+Shift+Up exec playerctl -p spotify play-pause
+bindsym $mod+Shift+s exec --no-startup-id maim -s -u ~/Pictures/Screenshots/screenshot-$(date +"%Y-%m-%d_%H:%M:%S").png
+bindsym $mod+Shift+s+c exec --no-startup-id maim -s -u | xclip -selection clipboard -t image/png -i
+bindsym $mod+Shift+Right exec --no-startup-id playerctl -p spotify next
+bindsym $mod+Shift+Left exec --no-startup-id playerctl -p spotify previous
+bindsym $mod+Shift+Up exec --no-startup-id playerctl -p spotify play-pause
 bindsym $mod+Shift+Return exec kitty nvim ~/vimwiki/index.wiki
 
 bindsym $mod+g exec --no-startup-id i3-msg gaps inner all set 30 && i3-msg gaps outer all set 20

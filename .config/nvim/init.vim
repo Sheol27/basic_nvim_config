@@ -28,8 +28,14 @@ Plug 'vim-airline/vim-airline'
 Plug 'dylanaraps/wal.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
-
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
 
 call plug#end()
 
@@ -82,7 +88,8 @@ inoremap <Right> <Nop>
 :command R :w | :!pdflatex %  
 :command O :silent ! file=% && zathura --config-dir "~/.config/zathura/" ${file\%.*}.pdf &  
 :command -nargs=1 S :silent ! grim -g "$(slurp)" images/<f-args>.png "save screenshots in order to open them inside tex files
-:command Convert ! pandoc "%" -f vimwiki -t pdf -s -o ~/vimwiki/pdf/"%:t:r.pdf"
+:command Convert ! pandoc -V geometry:margin=1in "%" -f vimwiki -t pdf -s -o ~/Documents/Essays/"%:t:r.pdf"
+:command P :w | :! python3.10 % 
 
 hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
 
@@ -97,23 +104,9 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline_powerline_fonts = 1
 
 "vimwiki
-"let wiki_1 = {}
-"let wiki_1.path = "~/vimwiki/"
-"let wiki_1.path_html = "~/vimwiki_html"
-"let wiki_1.syntax = "markdown"
-"let wiki_1.ext = ".md"
-
-"let wiki_2 = {}
-"let wiki_2.path = "~/diary/"
-"let wiki_2.path_html = "~/diary_html"
-"let wiki_2.syntax = "markdown"
-"let wiki_2.ext = ".md"
-
-"let g:vimwiki_list = [{'custom_wiki2html': 'vimwiki_markdown'}, wiki_1, wiki_2]
 "let g:vimwiki_listsyms = '✗○◐●✓'
-"let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 let g:vimwiki_list = [{'auto_diary_index': 1}]
-
+let g:vimwiki_table_mappings = 0
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -148,7 +141,77 @@ if &filetype ==# 'tex' || &filetype ==# 'plaintex'
 endif
 
 if &filetype ==# 'vimwiki'
-    autocmd CursorHold,CursorHoldI <buffer> silent! :w
+    autocmd CursorHold,CursorHoldI <buffer> silent! write
 endif
+
+autocmd TextChanged,TextChangedI *.wiki silent write
+
+"LSP config 
+"lua << EOF
+"require'lspconfig'.pyright.setup{}
+"EOF
+
+lua <<EOF
+  -- Setup nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      end,
+    },
+    mapping = {
+      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig')['pyright'].setup {
+    capabilities = capabilities
+  }
+EOF
+
+
+
 
 colorscheme wal
