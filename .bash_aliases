@@ -31,3 +31,9 @@ config add -u &
 config commit -m "$(date +'%d-%m-%Y')"
 config push origin master
 }
+
+appunti-update () {
+appunti add -u &
+appunti commit -m "$(date +'%d-%m-%Y')"
+appunti push origin master
+}
