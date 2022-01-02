@@ -15,7 +15,6 @@ filetype plugin on
 "set termguicolors
 :set updatetime=2000
 
-
 call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'sirver/ultisnips'
@@ -49,8 +48,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "inoremap [, [<CR>],<C-c>O
 "inoremap {<Enter> {<CR>}<C-c>O
 "inoremap [<Enter> [<CR]<C-c>O
-nnoremap <silent> <F11> :set spell!<cr> 
-inoremap <silent> <F11> <C-O>:set spell!<cr> 
+nnoremap <silent> <F11> :set spell! <cr>
+inoremap <silent> <F11> <C-O>:set spell! <cr>
 inoremap <leader><space> <ESC>la
 inoremap fj <C-o>dvb
 
@@ -145,11 +144,6 @@ if &filetype ==# 'vimwiki'
 endif
 
 autocmd TextChanged,TextChangedI *.wiki silent write
-
-"LSP config 
-"lua << EOF
-"require'lspconfig'.pyright.setup{}
-"EOF
 
 lua <<EOF
   -- Setup nvim-cmp.
