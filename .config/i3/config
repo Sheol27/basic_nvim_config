@@ -222,5 +222,7 @@ gaps inner 10
 exec_always --no-startup-id xset r rate 300 30
 exec_always --no-startup-id setxkbmap -layout it
 
+#Health script
+exec_always --no-startup-id /usr/local/bin/health-script 
 
 
