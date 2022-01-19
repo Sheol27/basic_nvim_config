@@ -1,0 +1,6 @@
+megasync
+picom-ibhagwan-git
+polybar
+spotify
+yay
+zoom
