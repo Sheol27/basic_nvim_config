@@ -1,6 +1,7 @@
 syntax on
 
 :imap jj <Esc>
+:imap JJ <Esc>
 :set relativenumber
 :set number
 :set noswapfile
