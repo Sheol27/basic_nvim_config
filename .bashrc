@@ -10,4 +10,4 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 
-PS1="\[ \[\e[32m\]\w\[\e[m\] \[\e[34m\]\\$\[\e[m\] "
+PS1="\u\[$(tput sgr0)\]"
