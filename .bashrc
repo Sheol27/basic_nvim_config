@@ -10,4 +10,4 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 
-PS1="\u\\$: \[$(tput sgr0)\]"
+PS1="\[$(tput bold)\]\[\033[38;5;75m\]\u\[$(tput sgr0)\]\\$: \[$(tput sgr0)\]\[\033[38;5;72m\]\w\[$(tput sgr0)\] \[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;167m\]>\[$(tput sgr0)\] \[$(tput sgr0)\]"
