@@ -10,4 +10,4 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 
-PS1="\u\[$(tput sgr0)\]"
+PS1="\u\\$: \[$(tput sgr0)\]"
